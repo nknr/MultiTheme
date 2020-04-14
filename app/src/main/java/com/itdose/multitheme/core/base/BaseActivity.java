@@ -1,6 +1,5 @@
 package com.itdose.multitheme.core.base;
 
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
@@ -9,15 +8,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.preference.PreferenceManager;
-
-import com.itdose.multitheme.R;
-import com.itdose.multitheme.utils.ThemeHelper;
 
 import javax.inject.Inject;
 

@@ -3,22 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.itdose.multitheme">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".DarkThemeApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/DarkThemeApp"
+        android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup"
         tools:targetApi="m">
+        <activity android:name=".view.activity.NoInternetActivity"></activity>
         <activity
             android:name=".view.activity.MainActivity"
-            android:configChanges="colorMode|uiMode"/>
-
+            android:configChanges="colorMode|uiMode" />
         <activity
             android:name=".view.activity.PeopleActivity"
             android:configChanges="colorMode|uiMode"

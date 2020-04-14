@@ -1,24 +1,28 @@
 package com.itdose.multitheme.view.activity;
 
 
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import com.google.android.material.snackbar.Snackbar;
-import com.google.gson.Gson;
 import com.itdose.multitheme.R;
 import com.itdose.multitheme.core.base.BaseActivity;
 import com.itdose.multitheme.data.remote.lib.Status;
 import com.itdose.multitheme.databinding.ActivityPeopleBinding;
+import com.itdose.multitheme.utils.ConnectionUtils;
 import com.itdose.multitheme.view.adapter.PeopleAdapter;
 import com.itdose.multitheme.viewmodel.PeopleViewModel;
+
+import javax.inject.Inject;
 
 import timber.log.Timber;
 
@@ -26,6 +30,8 @@ public class PeopleActivity extends BaseActivity<PeopleViewModel, ActivityPeople
 
     private PeopleAdapter adapter;
     private int mLastDayNightMode;
+    @Inject
+    ConnectionUtils connectionUtils;
 
     @Override
     protected Class<PeopleViewModel> getViewModel() {
@@ -43,7 +49,7 @@ public class PeopleActivity extends BaseActivity<PeopleViewModel, ActivityPeople
         initBinding();
         setupRecyclerView();
         observerPeopleResource();
-        observerPeopleList();
+        setupConnectionObserver();
     }
 
     private void initBinding() {
@@ -85,8 +91,7 @@ public class PeopleActivity extends BaseActivity<PeopleViewModel, ActivityPeople
 
 
     public void onFab(View view) {
-        viewModel.addPeople();
-        observerPeopleResource();
+        viewModel.loadPeople(false);
     }
 
     private void observerPeopleResource() {
@@ -107,11 +112,22 @@ public class PeopleActivity extends BaseActivity<PeopleViewModel, ActivityPeople
 
     }
 
-    private void observerPeopleList() {
-        
-
+    private void setupConnectionObserver() {
+        connectionUtils.observe(this, connection -> {
+            if (!connection.getIsConnected()) {
+                startActivityForResult(new Intent(this, NoInternetActivity.class), 1);
+            }
+        });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK){
+            viewModel.loadPeople(true);
+            observerPeopleResource();
+        }
+    }
 
     private void showMessage(String message) {
         Snackbar.make(dataBinding.getRoot(), message, Snackbar.LENGTH_LONG).show();

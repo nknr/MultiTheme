@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.itdose.multitheme.DarkThemeApplication;
+import com.itdose.multitheme.utils.ConnectionUtils;
 
 import javax.inject.Singleton;
 
@@ -26,10 +27,10 @@ public class AppModule {
         return new Gson();
     }
 
-    /*@Singleton
+    @Singleton
     @Provides
-    Utils provideUtils(Context context){
-        return new Utils(context);
-    }*/
+    ConnectionUtils provideConnectionUtils(Context context){
+        return new ConnectionUtils(context);
+    }
 
 }

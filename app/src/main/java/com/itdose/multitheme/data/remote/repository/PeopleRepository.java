@@ -1,7 +1,6 @@
 package com.itdose.multitheme.data.remote.repository;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.itdose.multitheme.core.constant.ConstantVariable;
@@ -17,20 +16,18 @@ import retrofit2.Call;
 public class PeopleRepository {
 
     private RestApi restApi;
-    public MutableLiveData<String> mutableLiveData;
 
     @Inject
     public PeopleRepository(RestApi restApi) {
         this.restApi = restApi;
-        mutableLiveData.setValue("Hi Neeraj");
     }
 
-    public MutableLiveData<Resource<PeopleResponse>> getRandomPeoples(){
+    public MutableLiveData<Resource<PeopleResponse>> getPeoples(boolean isRandom){
         return new NetworkBoundResource<PeopleResponse>() {
             @NonNull
             @Override
             protected Call<PeopleResponse> createCall() {
-                return restApi.fetchPeople(ConstantVariable.RANDOM_USER_URL);
+                return restApi.fetchPeople(isRandom?ConstantVariable.RANDOM_USER_URL:ConstantVariable.BASE_URL);
             }
         }.getAsLiveData();
     }
