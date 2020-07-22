@@ -1,14 +1,10 @@
 package com.itdose.multitheme.data.remote.lib;
 
-import android.util.Log;
-
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.google.gson.Gson;
 import com.google.gson.stream.MalformedJsonException;
 
 import java.io.IOException;
@@ -16,18 +12,9 @@ import java.net.SocketTimeoutException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
-import retrofit2.HttpException;
 import retrofit2.Response;
 
-/**
- * This class act as the decider to cache the response/ fetch from the service always
- * Author: Lajesh D
- * Email: lajeshds2007@gmail.com
- * Created: 7/24/2018
- * Modified: 7/24/2018
- */
 public abstract class NetworkBoundResource<T> {
-
     private final MediatorLiveData<Resource<T>> result = new MediatorLiveData<>();
 
     @MainThread
@@ -65,7 +52,7 @@ public abstract class NetworkBoundResource<T> {
         } else if (error instanceof MalformedJsonException) {
             return  "Json format incorrect";
         } else if (error instanceof IOException) {
-             return  "No internet connection";
+            return  "No internet connection";
         } else{
             return error.getMessage();
         }
@@ -76,13 +63,11 @@ public abstract class NetworkBoundResource<T> {
     @MainThread
     private void saveResultAndReInit(V response) {
         new AsyncTask<Void, Void, Void>() {
-
             @Override
             protected Void doInBackground(Void... voids) {
                 //saveCallResult(response);
                 return null;
             }
-
             @Override
             protected void onPostExecute(Void aVoid) {
                 *//*result.addSource(loadFromDb(), newData -> {
@@ -113,3 +98,4 @@ public abstract class NetworkBoundResource<T> {
         return result;
     }
 }
+

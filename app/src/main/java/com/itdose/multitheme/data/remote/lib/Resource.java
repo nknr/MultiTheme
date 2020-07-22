@@ -4,9 +4,10 @@ package com.itdose.multitheme.data.remote.lib;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import static com.itdose.multitheme.data.remote.lib.Status.SUCCESS;
 import static com.itdose.multitheme.data.remote.lib.Status.ERROR;
 import static com.itdose.multitheme.data.remote.lib.Status.LOADING;
+import static com.itdose.multitheme.data.remote.lib.Status.SUCCESS;
+
 
 public class Resource<T> {
     @NonNull
@@ -48,5 +49,9 @@ public class Resource<T> {
     @Nullable
     public T getData() {
         return data;
+    }
+
+    public boolean isLoading(){
+        return status == LOADING;
     }
 }

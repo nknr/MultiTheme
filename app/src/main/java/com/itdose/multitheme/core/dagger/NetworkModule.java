@@ -1,22 +1,25 @@
-package com.itdose.multitheme.core.dagger.modules;
+package com.itdose.multitheme.core.dagger;
 
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.itdose.multitheme.core.constant.ConstantVariable;
 import com.itdose.multitheme.data.remote.RestApi;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import dagger.hilt.InstallIn;
+import dagger.hilt.android.components.ApplicationComponent;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 @Module
+@InstallIn(ApplicationComponent.class)
 public class NetworkModule {
 
     @Singleton

@@ -13,6 +13,7 @@ import com.itdose.multitheme.data.local.model.Connection;
 
 import javax.inject.Inject;
 
+
 public class ConnectionUtils extends LiveData<Connection> {
 
     private Context context;

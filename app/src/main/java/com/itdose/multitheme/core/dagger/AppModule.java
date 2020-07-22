@@ -1,25 +1,23 @@
-package com.itdose.multitheme.core.dagger.modules;
+package com.itdose.multitheme.core.dagger;
 
 import android.content.Context;
 
 import com.google.gson.Gson;
-import com.itdose.multitheme.DarkThemeApplication;
 import com.itdose.multitheme.utils.ConnectionUtils;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import dagger.hilt.InstallIn;
+import dagger.hilt.android.components.ApplicationComponent;
+import dagger.hilt.android.qualifiers.ApplicationContext;
 
 
-@Module(includes = {ViewModelModule.class})
+@Module
+@InstallIn(ApplicationComponent.class)
 public class AppModule {
 
-    @Singleton
-    @Provides
-    Context provideContext(DarkThemeApplication application){
-        return application;
-    }
 
     @Singleton
     @Provides
@@ -29,7 +27,7 @@ public class AppModule {
 
     @Singleton
     @Provides
-    ConnectionUtils provideConnectionUtils(Context context){
+    ConnectionUtils provideConnectionUtils(@ApplicationContext Context context){
         return new ConnectionUtils(context);
     }
 

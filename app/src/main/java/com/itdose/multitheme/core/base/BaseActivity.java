@@ -13,14 +13,8 @@ import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import javax.inject.Inject;
-
-import dagger.android.AndroidInjection;
 
 public abstract class BaseActivity<V extends ViewModel, D extends ViewDataBinding> extends AppCompatActivity{
-
-    @Inject
-    ViewModelProvider.Factory viewModelFactory;
 
     protected V viewModel;
 
@@ -33,10 +27,9 @@ public abstract class BaseActivity<V extends ViewModel, D extends ViewDataBindin
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
         dataBinding = DataBindingUtil.setContentView(this, getLayoutRes());
-        viewModel = new ViewModelProvider(this, viewModelFactory).get(getViewModel());
+        viewModel = new ViewModelProvider(this).get(getViewModel());
 
     }
 

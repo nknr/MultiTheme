@@ -16,7 +16,7 @@
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup"
         tools:targetApi="m">
-        <activity android:name=".view.activity.NoInternetActivity"></activity>
+        <activity android:name=".view.activity.NoInternetActivity"/>
         <activity
             android:name=".view.activity.MainActivity"
             android:configChanges="colorMode|uiMode" />

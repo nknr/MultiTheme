@@ -57,7 +57,7 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.PeopleView
         public PeopleViewHolder(ItemPeopleBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
-            binding.getRoot().setOnClickListener(this);
+            binding.itemPeople.setOnClickListener(this);
         }
 
         @Override

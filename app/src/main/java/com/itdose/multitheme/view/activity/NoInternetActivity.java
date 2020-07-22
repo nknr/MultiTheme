@@ -12,7 +12,11 @@ import com.itdose.multitheme.viewmodel.NoInternetViewModel;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class NoInternetActivity extends BaseActivity<NoInternetViewModel, ActivityNoInternetBinding> {
+
 
     @Inject
     ConnectionUtils utils;

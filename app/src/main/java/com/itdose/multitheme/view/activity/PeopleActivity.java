@@ -3,6 +3,7 @@ package com.itdose.multitheme.view.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,7 +11,8 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.core.app.ActivityCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -19,17 +21,21 @@ import com.itdose.multitheme.core.base.BaseActivity;
 import com.itdose.multitheme.data.remote.lib.Status;
 import com.itdose.multitheme.databinding.ActivityPeopleBinding;
 import com.itdose.multitheme.utils.ConnectionUtils;
+import com.itdose.multitheme.utils.SpaceDecoration;
 import com.itdose.multitheme.view.adapter.PeopleAdapter;
 import com.itdose.multitheme.viewmodel.PeopleViewModel;
 
 import javax.inject.Inject;
 
+import dagger.hilt.android.AndroidEntryPoint;
 import timber.log.Timber;
 
+@AndroidEntryPoint
 public class PeopleActivity extends BaseActivity<PeopleViewModel, ActivityPeopleBinding> {
 
     private PeopleAdapter adapter;
     private int mLastDayNightMode;
+
     @Inject
     ConnectionUtils connectionUtils;
 
@@ -86,7 +92,11 @@ public class PeopleActivity extends BaseActivity<PeopleViewModel, ActivityPeople
         adapter = new PeopleAdapter();
         dataBinding.listPeople.setAdapter(adapter);
         dataBinding.listPeople.setLayoutManager(new LinearLayoutManager(this));
-        dataBinding.listPeople.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        dataBinding.listPeople.addItemDecoration(new SpaceDecoration(16));
+        adapter.setListener(people -> {
+            ///
+        });
+
     }
 
 
@@ -137,10 +147,10 @@ public class PeopleActivity extends BaseActivity<PeopleViewModel, ActivityPeople
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         // This demonstrates how to programmatically tint a drawable
-        /*MenuItem item = menu.findItem(R.id.action_more);
+        MenuItem item = menu.findItem(R.id.action_more);
         Drawable drawableWrap = DrawableCompat.wrap(item.getIcon()).mutate();
-        DrawableCompat.setTint(drawableWrap, ColorUtils.getThemeColor(this, R.attr));
-        item.setIcon(drawableWrap);*/
+        DrawableCompat.setTint(drawableWrap, ActivityCompat.getColor(this,R.color.colorPrimaryText));
+        item.setIcon(drawableWrap);
         return true;
     }
 
